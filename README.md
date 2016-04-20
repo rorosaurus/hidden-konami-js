@@ -2,7 +2,9 @@ Hidden-Konami-JS
 =========
 
 Check out the original repo here: https://github.com/snaptortoise/konami-js
+
 Thanks to https://github.com/blueimp/JavaScript-MD5 for the MD5 implementation.
+
 Both sources use MIT license
 
 ## What
