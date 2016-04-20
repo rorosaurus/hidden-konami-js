@@ -26,6 +26,7 @@ var Konami = function (callback) {
 		},
 		input: "",
 		pattern: "38384040373937396665",
+		secretPhrase: "konami",
 		load: function (link) {
 			this.addEvent(document, "keydown", function (e, ref_obj) {
 				if (ref_obj) konami = ref_obj; // IE
@@ -53,3 +54,33 @@ var Konami = function (callback) {
 
 	return konami;
 };
+
+// Cheers to http://stackoverflow.com/a/950146
+function loadScript(url, callback)
+{
+    // Adding the script tag to the head as suggested before
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
+
+var md5Hash = "";
+
+// Called once the EasterEgg .js file is loaded
+var executeEasterEggFunction = function() {
+	// Better than using eval()
+	// Must be prefaced with an "_", because js naming rules don't allow number to start
+	var fn = window["_" + md5Hash];
+	if(typeof fn === 'function'){
+		fn();
+	}
+}
