@@ -1,77 +1,18 @@
-Konami-JS
+Hidden-Konami-JS
 =========
 
-#### Important Update
+Check out the original repo here: https://github.com/snaptortoise/konami-js
 
-**NOTE:** I've decided to simplify the repository. Just the JavaScript file and the README with some links to examples. 
+## What
+Basically, this fork sacrifices touchscreen support to allow customization of obfuscated patterns.
 
-Recently I started receiving requests to including Konami-JS in a variety of JavaScript module loaders. If that feature is important to you I'd encourage you to fork the repo and implement it yourself &mdash; I have no plans of introducing anything like that here.
+## Why
+Maybe you want your website to do something special, but you don't want it to be immediately obvious what the pattern is upon inspection of the source. Using MD5 is cheap and good enough for this, and it would be funny to see someone try and find a collision just to find out the pattern. :)
 
-#### Simplified Implementation
+### You realize everyone can see the code the pattern executes anyway, right? This doesn't hide that.
+Actually, that only just occured to me.  Damn.  *thinks furiously*
 
-Previously the simplest version of a Konami-JS implementation looked like this:
+I suppose my first thought is we could, once the pattern is recognized, append something, calculate a new hash, and use that hash to get new code from the server.  Perhaps the easiest way to do this would be to have a .js file named with the new hash, with some function name we expect, which we then import and call.
 
-```javascript
-var easter_egg = new Konami();
-easter_egg.load('http://your-special-easter-egg-website.com')
-```
-
-This would redirect the user to a specified website upon successfully completing the Konami Code.
-
-You could also pass along a function to execute when the easter egg is completed. The simplest version of that looked like this:
-
-```javascript
-var easter_egg = new Konami();
-easter_egg.code = function() { alert('Konami code!'); }
-easter_egg.load();
-```
-
-That is even sillier than the other implementation. 
-
-You can now set  either the URL to redirect to OR the function to execute when you instantiate the class:
-
-```javascript
-var easter_egg = new Konami('http://your-special-easter-egg-website.com');
-```	
-	
-OR:
-
-```javascript
-var easter_egg = new Konami(function() { alert('Konami code!')});
-```
-
-A passed string is assumed to be the URL to redirect to. A passed function will be executed when the code is successfully entered:
-
-This is why you do code reviews more often than once ever two years. 
-
-
-#### Overview
-
-Every site should have an implementation of the Konami Code. It makes things more fun. If you're unfamiliar with it, the Konami Code is a "cheat code" that appeared in many of Konami's video games going all the way back to 1986.  It was typically entered on a Nintendo controller. Recently, ESPN received attention for the funny, flashy things that would happen when the code was entered on their website. Those shenanigans were the inspiration for whipping up this script.
-
-#### Gesture Support
-
-As of version 1.1, Konami-JS includes support for gestures on iOS and Android devices.  Technically the code becomes "up, up, down, down, left, right, left, right, tap, tap" on these devices but that's close enough!
-
-Support for touch gestures is automatically loaded when `konami.load()` is called.  See the [example page](http://snaptortoise.com/konami-js) for details on how to deliver touch-specific easter eggs.
-
-
-#### More!
-
-If you'd prefer to use a coffeescript version you can find one here:
-
-[https://github.com/camray/konami-coffee](https://github.com/camray/konami-coffee)
-
-Are you looking for GamePad support? Check out this fork:
-
-[https://github.com/TomBebbington/konami-js](https://github.com/TomBebbington/konami-js)
-
-As Seen On...
-=============
-
-  * Newsweek
-  * Marvel
-  * [Almost half the sites in this Mashable article](http://mashable.com/2010/07/31/konami-code-sites)
-  * [Smashing Magazine](http://uxdesign.smashingmagazine.com/2012/04/26/gamification-ux-users-win-lose/)
-  * [The History of Gaming Conventions](http://www.bigfishgames.com/daily/gaming-conventions-timeline/)
-  * ...and MANY more!
+### This is not secure
+You are correct.  Please do not use this to secure anything actually important.  This is just meant to be a simple way to make some dumb secret jokes on your website, which can (mostly) only be discovered or spread by word-of-mouth.
