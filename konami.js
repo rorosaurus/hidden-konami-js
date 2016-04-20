@@ -10,7 +10,10 @@
  * Tested in: Safari 4+, Google Chrome 4+, Firefox 3+, IE7+, Mobile Safari 2.2.1 and Dolphin Browser
  */
 
-var Konami = function (callback) {
+var functionHash = "";
+
+var Konami = function (patternHash, patternLength) {
+	patternLength *= 2;
 	var konami = {
 		addEvent: function (obj, type, fn, ref_obj) {
 			if (obj.addEventListener)
@@ -25,61 +28,56 @@ var Konami = function (callback) {
 			}
 		},
 		input: "",
-		pattern: "38384040373937396665",
-		secretPhrase: "konami",
 		load: function (link) {
 			this.addEvent(document, "keydown", function (e, ref_obj) {
 				if (ref_obj) konami = ref_obj; // IE
 				konami.input += e ? e.keyCode : event.keyCode;
-				if (konami.input.length > konami.pattern.length)
-					konami.input = konami.input.substr((konami.input.length - konami.pattern.length));
-				if (konami.input == konami.pattern) {
-					konami.code(link);
+				// basically a circular buffer for string
+				if (konami.input.length > patternLength)
+					konami.input = konami.input.substr((konami.input.length - patternLength));
+				// here we change the comparison to use hashes
+				if (md5(konami.input) == patternHash) {
+					// create our new hash, using public hash and secret input provided by user :)
+					functionHash = md5(patternHash.concat(konami.input));
+					// load the script and execute the easter egg
+					loadScript(functionHash);
+					// reset
 					konami.input = "";
 					e.preventDefault();
 					return false;
 				}
 			}, this);
-		},
-		code: function (link) {
-			window.location = link
 		}
 	}
 
-	typeof callback === "string" && konami.load(callback);
-	if (typeof callback === "function") {
-		konami.code = callback;
-		konami.load();
-	}
+	konami.load();
 
 	return konami;
 };
 
 // Cheers to http://stackoverflow.com/a/950146
-function loadScript(url, callback)
+function loadScript(scriptHash)
 {
     // Adding the script tag to the head as suggested before
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = url;
+    script.src = scriptHash.concat(".js");
 
     // Then bind the event to the callback function.
     // There are several events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
+    script.onreadystatechange = executeEasterEggFunction;
+    script.onload = executeEasterEggFunction;
 
     // Fire the loading
     head.appendChild(script);
 }
 
-var md5Hash = "";
-
 // Called once the EasterEgg .js file is loaded
 var executeEasterEggFunction = function() {
-	// Better than using eval()
 	// Must be prefaced with an "_", because js naming rules don't allow number to start
-	var fn = window["_" + md5Hash];
+	var fn = window["_" + functionHash];
+	// Better than using eval()
 	if(typeof fn === 'function'){
 		fn();
 	}
