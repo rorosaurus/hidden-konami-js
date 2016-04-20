@@ -2,6 +2,8 @@ Hidden-Konami-JS
 =========
 
 Check out the original repo here: https://github.com/snaptortoise/konami-js
+Thanks to https://github.com/blueimp/JavaScript-MD5 for the MD5 implementation.
+Both sources use MIT license
 
 ## What
 Basically, this fork sacrifices touchscreen support to allow customization of obfuscated patterns.
@@ -18,3 +20,11 @@ Two options immediately present themselves:
 
 ### This is not secure
 You are correct.  Please do not use this to secure anything actually important.  This is just meant to be a simple way to make some dumb secret jokes on your website, which can (mostly) only be discovered or spread by word-of-mouth.  This was a random idea of mine and I just wanted to see if I can get it to work.
+
+###Links
+Find your keycodes:
+http://javascriptkeycodes.com/
+http://www.cambiaresearch.com/articles/15/javascript-key-codes
+
+Find MD5 hash:
+https://blueimp.github.io/JavaScript-MD5/
