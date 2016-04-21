@@ -1,16 +1,14 @@
-Hidden-Konami-JS
+Hidden Konami JS
 =========
 
-Check out the original repo here: https://github.com/snaptortoise/konami-js
+## What is this?
+[konami-js](https://github.com/snaptortoise/konami-js) is a nice little library that lets you add a secret function to your website, which is called when you type in the [Konami Code](https://en.wikipedia.org/wiki/Konami_Code).  I love using this to sneak little easter eggs into my projects, but I've always had a few complaints.
+* You can't customize the input code that reveals the secret
+* The input code and secret function are plainly visible in the page source, so they are easy to find reveal
 
-Thanks to https://github.com/blueimp/JavaScript-MD5 for the MD5 implementation.
+Basically, this fork sacrifices touchscreen support to allow customization of patterns.
 
-Both sources use MIT license
-
-## What
-Basically, this fork sacrifices touchscreen support to allow customization of obfuscated patterns.
-
-## Why
+## Why would you want that?
 Maybe you want your website to do something special, but you don't want it to be immediately obvious what the pattern is upon inspection of the source. Using MD5 is cheap and good enough for this, and it would be funny to see someone try and find a collision just to find out the pattern.
 
 ### You realize everyone can see the code the pattern executes anyway, right? This doesn't hide that.
@@ -41,3 +39,9 @@ http://www.cambiaresearch.com/articles/15/javascript-key-codes
 
 Find MD5 hash:
 https://blueimp.github.io/JavaScript-MD5/
+
+Check out the original repo here: https://github.com/snaptortoise/konami-js
+
+Thanks to https://github.com/blueimp/JavaScript-MD5 for the MD5 implementation.
+
+Both sources use MIT license
