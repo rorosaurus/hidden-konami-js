@@ -18,6 +18,8 @@ var Generator = function () {
 				if (ref_obj) generator = ref_obj; // IE
 				generator.input += e ? e.keyCode : event.keyCode;
 				generator.generateHashes();
+				e.preventDefault();
+				return false;
 			}, this);
 		},
 		generateHashes: function () {
