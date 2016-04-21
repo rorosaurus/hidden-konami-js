@@ -13,6 +13,7 @@
     <![endif]-->
     <script type="text/javascript" src="konami.js"></script>
     <script type="text/javascript" src="md5.min.js"></script>
+    <script type="text/javascript" src="generator.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -28,6 +29,28 @@
           <li><a href="https://github.com/rorosaurus/hidden-konami-js/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/rorosaurus/hidden-konami-js">View On <strong>GitHub</strong></a></li>
         </ul>
+        
+        <br><br>
+        
+        <h3>Want help creating a pattern?</h3>
+        <small>Your keypresses are recorded as a pattern below</small><br>
+        <script>var generator = new Generator();</script>
+        <p><button type="button" onclick="generator.reset();">Reset pattern</button></p>
+        
+        <form name="generatedValues">
+        <strong>Here's the raw keycode for your pattern</strong><br>
+        Pattern Keycodes:<br>
+        <input type = "text" name="patternstring" size="32"><br>
+        <strong>Here are the values you'll use</strong><br>
+        Pattern Hash:<br>
+        <input type = "text" name="patternhash" size="32"><br>
+        Pattern Length:<br>
+        <input type = "text" name="patternstringlength" size="32"><br>
+        JS File Name:<br>
+        <input type = "text" name="jsfilename" size="32"><br>
+        JS Function Name:<br>
+        <input type = "text" name="jsfunctionname" size="32"><br>
+        </form>
       </header>
       <section>
         <h1>
