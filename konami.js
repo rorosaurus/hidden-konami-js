@@ -57,21 +57,30 @@ var Konami = function (patternHash, patternLength) {
 };
 
 // Cheers to http://stackoverflow.com/a/950146
-function loadScript(scriptHash)
-{
-    // Adding the script tag to the head as suggested before
+function loadScript(scriptHash) {
     var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = scriptHash.concat(".js");
+	var scripts = head.getElementsByTagName('script');
+	
+	// Determine if script is already loaded
+	for (x=0; x < scripts.length; x++) {
+		if(~scripts[x].src.indexOf(scriptHash.concat(".js"))) {
+			executeEasterEggFunction(); // Execute easter egg directly if loaded already
+			return;
+		}
+	}
+	
+	// Otherwise load the secret js and then execute
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = scriptHash.concat(".js");
 
-    // Then bind the event to the callback function.
-    // There are several events for cross browser compatibility.
-    script.onreadystatechange = executeEasterEggFunction;
-    script.onload = executeEasterEggFunction;
+	// Then bind the event to the callback function.
+	// There are several events for cross browser compatibility.
+	script.onreadystatechange = executeEasterEggFunction;
+	script.onload = executeEasterEggFunction;
 
-    // Fire the loading
-    head.appendChild(script);
+	// Fire the loading
+	head.appendChild(script);
 }
 
 // Called once the EasterEgg .js file is loaded
