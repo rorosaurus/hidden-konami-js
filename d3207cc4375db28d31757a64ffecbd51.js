@@ -8,4 +8,5 @@
 
 // This function is called when you input the Konami Code!
 function _d3207cc4375db28d31757a64ffecbd51(){
+    alert("You entered the Konami Code and found this Easter Egg! Can you find the others?");
 }

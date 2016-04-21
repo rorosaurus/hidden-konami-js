@@ -1,3 +1,4 @@
+// Pattern: h, e, l, l, o
 // Keycodes: 7269767679
 
 // Pattern Hash: 2c1f8024fd09b1041479476ddadefa10
