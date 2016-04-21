@@ -12,6 +12,8 @@
 
 var functionHash = "";
 
+// patternHash is the MD5 hash of the keycode input string
+// patternLength is the number of digits in the keycode input string
 var Konami = function (patternHash, patternLength) {
 	var konami = {
 		addEvent: function (obj, type, fn, ref_obj) {
@@ -81,3 +83,4 @@ var executeEasterEggFunction = function() {
 		fn();
 	}
 }
+
