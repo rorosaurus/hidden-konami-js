@@ -13,8 +13,6 @@
 var functionHash = "";
 
 var Konami = function (patternHash, patternLength) {
-	// we assume all keycodes we recieve are 2 digits long...
-	patternLength *= 2;
 	var konami = {
 		addEvent: function (obj, type, fn, ref_obj) {
 			if (obj.addEventListener)
