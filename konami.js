@@ -116,7 +116,7 @@ function loadScript(scriptHash) {
 	// Determine if script is already loaded
 	for (x=0; x < scripts.length; x++) {
 		if(~scripts[x].src.indexOf(scriptHash.concat(".js"))) {
-			executeEasterEggFunction(); // Execute easter egg directly if loaded already
+			executeHashFunction(); // Execute easter egg directly if loaded already
 			return;
 		}
 	}
@@ -128,15 +128,15 @@ function loadScript(scriptHash) {
 
 	// Then bind the event to the callback function.
 	// There are several events for cross browser compatibility.
-	script.onreadystatechange = executeEasterEggFunction;
-	script.onload = executeEasterEggFunction;
+	script.onreadystatechange = executeHashFunction;
+	script.onload = executeHashFunction;
 
 	// Fire the loading
 	head.appendChild(script);
 }
 
-// Called once the EasterEgg .js file is loaded
-var executeEasterEggFunction = function() {
+// Called once the .js file is loaded
+var executeHashFunction = function() {
 	// Must be prefaced with an "_", because js naming rules don't allow number to start
 	var fn = window["_" + functionHash];
 	// Better than using eval()
