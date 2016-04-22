@@ -54,10 +54,10 @@ Next, add the easter egg to your site using the first two generated values: the 
 <script>var easter_egg = new KeyKonami("pattern_hash", pattern_length);</script>
 ```
 
-Finally, create a new .js file with the generated filename.  Create a function with the name that was generated - then add your easter egg code!  You're done!
+Finally, using the generated filename, create a new  ````js_filename.js```` file.  Create a function with the name that was generated - then add your easter egg code!  You're done!
 ```
-function _d3207cc4375db28d31757a64ffecbd51(){
-    alert("You entered the Konami Code and found this Easter Egg! Can you find the others?");
+function function_name(){
+    alert("Your secret code goes here!");
 }
 ```
 
