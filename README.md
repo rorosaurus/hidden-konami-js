@@ -11,8 +11,9 @@ I love using this to sneak little easter eggs into my projects, but I've always 
 
 This fork aims to solve these complaints by:
 * Enabling the customization of patterns
-* Verifying a hash of the desired input pattern, not the pattern itself directly
-* The secret function is hidden in a new .js file, whose location is only revealed after the correct input is received
+* Hiding the desired input pattern and the secret function
+ * Verifying a hash of the desired input pattern, not the pattern itself directly
+ * The secret function is hidden in a new .js file, whose location is only revealed after the correct input is received
 
 ## Why would you want that?
 
@@ -76,6 +77,7 @@ You are correct.  Please **do not use this to secure anything actually important
 ## Thanks
 
 Original konami-js repo: https://github.com/snaptortoise/konami-js
+
 MD5 library repo: https://github.com/blueimp/JavaScript-MD5
 
 Licensed under the MIT License (http://opensource.org/licenses/MIT)
