@@ -43,7 +43,7 @@ Hint: It becomes easy once you realize the demo site contents are public on the 
 
 On the left of the demo site, I've created a quick tool to help you generate the values for your own input patterns!  Once you settle on a good input pattern, you can save the relevant values and use them below.
 
-First, you need to add the script to your page.
+First, you need to add the script to your page.  Make sure you add the MD5 script too!
 ```
 <script type="text/javascript" src="konami.js"></script>
 ```
