@@ -6,38 +6,40 @@
 
 var functionHash = "";
 
+// unify adding events across browsers
+function addEvent(obj, type, fn, ref_obj) {
+	if (obj.addEventListener)
+		obj.addEventListener(type, fn, false);
+	else if (obj.attachEvent) {
+		// IE
+		obj["e" + type + fn] = fn;
+		obj[type + fn] = function () {
+			obj["e" + type + fn](window.event, ref_obj);
+		}
+		obj.attachEvent("on" + type, obj[type + fn]);
+	}
+}
+
 // patternHash is the MD5 hash of the keycode input string
 // patternLength is the number of digits in the keycode input string
 var KeyKonami = function (patternHash, patternLength) {
-	var konami = {
-		addEvent: function (obj, type, fn, ref_obj) {
-			if (obj.addEventListener)
-				obj.addEventListener(type, fn, false);
-			else if (obj.attachEvent) {
-				// IE
-				obj["e" + type + fn] = fn;
-				obj[type + fn] = function () {
-					obj["e" + type + fn](window.event, ref_obj);
-				}
-				obj.attachEvent("on" + type, obj[type + fn]);
-			}
-		},
+	var keykonami = {
 		input: "",
 		load: function (link) {
-			this.addEvent(document, "keydown", function (e, ref_obj) {
-				if (ref_obj) konami = ref_obj; // IE
-				konami.input += e ? e.keyCode : event.keyCode;
+			addEvent(document, "keydown", function (e, ref_obj) {
+				if (ref_obj) keykonami = ref_obj; // IE
+				keykonami.input += e ? e.keyCode : event.keyCode;
 				// basically a circular buffer for string
-				if (konami.input.length > patternLength)
-					konami.input = konami.input.substr((konami.input.length - patternLength));
+				if (keykonami.input.length > patternLength)
+					keykonami.input = keykonami.input.substr((keykonami.input.length - patternLength));
 				// here we change the comparison to use hashes
-				if (md5(konami.input) == patternHash) {
+				if (md5(keykonami.input) == patternHash) {
 					// create our new hash, using public hash and secret input provided by user :)
-					functionHash = md5(patternHash.concat(konami.input));
+					functionHash = md5(patternHash.concat(keykonami.input));
 					// load the script and execute the easter egg
 					loadScript(functionHash);
 					// reset
-					konami.input = "";
+					keykonami.input = "";
 					e.preventDefault();
 					return false;
 				}
@@ -45,25 +47,13 @@ var KeyKonami = function (patternHash, patternLength) {
 		}
 	}
 
-	konami.load();
+	keykonami.load();
 
-	return konami;
+	return keykonami;
 };
 
-var TouchKonami = function () {
-	var konami = {
-		addEvent: function (obj, type, fn, ref_obj) {
-			if (obj.addEventListener)
-				obj.addEventListener(type, fn, false);
-			else if (obj.attachEvent) {
-				// IE
-				obj["e" + type + fn] = fn;
-				obj[type + fn] = function () {
-					obj["e" + type + fn](window.event, ref_obj);
-				}
-				obj.attachEvent("on" + type, obj[type + fn]);
-			}
-		},
+var TouchKonami = function (patternHash, patternLength) {
+	var touchkonami = {
 		start_x: 0,
 		start_y: 0,
 		stop_x: 0,
@@ -74,24 +64,24 @@ var TouchKonami = function () {
 		keys: ["UP", "UP", "DOWN", "DOWN", "LEFT", "RIGHT", "LEFT", "RIGHT", "TAP", "TAP"],
 		load: function (link) {
 			this.orig_keys = this.keys;
-			konami.addEvent(document, "touchmove", function (e) {
-				if (e.touches.length == 1 && konami.capture == true) {
+			addEvent(document, "touchmove", function (e) {
+				if (e.touches.length == 1 && touchkonami.capture == true) {
 					var touch = e.touches[0];
-					konami.stop_x = touch.pageX;
-					konami.stop_y = touch.pageY;
-					konami.tap = false;
-					konami.capture = false;
-					konami.check_direction();
+					touchkonami.stop_x = touch.pageX;
+					touchkonami.stop_y = touch.pageY;
+					touchkonami.tap = false;
+					touchkonami.capture = false;
+					touchkonami.check_direction();
 				}
 			});
-			konami.addEvent(document, "touchend", function (evt) {
-				if (konami.tap == true) konami.check_direction(link);
+			addEvent(document, "touchend", function (evt) {
+				if (touchkonami.tap == true) touchkonami.check_direction(link);
 			}, false);
-			konami.addEvent(document, "touchstart", function (evt) {
-				konami.start_x = evt.changedTouches[0].pageX;
-				konami.start_y = evt.changedTouches[0].pageY;
-				konami.tap = true;
-				konami.capture = true;
+			addEvent(document, "touchstart", function (evt) {
+				touchkonami.start_x = evt.changedTouches[0].pageX;
+				touchkonami.start_y = evt.changedTouches[0].pageY;
+				touchkonami.tap = true;
+				touchkonami.capture = true;
 			});
 		},
 		check_direction: function (link) {
@@ -110,8 +100,8 @@ var TouchKonami = function () {
 		}
 	}
 
-	konami.load();
-	return konami;
+	touchkonami.load();
+	return touchkonami;
 };
 
 // Cheers to http://stackoverflow.com/a/950146
