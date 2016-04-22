@@ -58,10 +58,8 @@ var TouchKonami = function (patternHash, patternLength) {
 		stop_y: 0,
 		tap: false,
 		capture: false,
-		orig_keys: "",
-		keys: ["UP", "UP", "DOWN", "DOWN", "LEFT", "RIGHT", "LEFT", "RIGHT", "TAP", "TAP"],
+		current_keys: [],
 		load: function () {
-			this.orig_keys = this.keys;
 			addEvent(document, "touchmove", function (e) {
 				if (e.touches.length == 1 && touchkonami.capture == true) {
 					var touch = e.touches[0];
@@ -82,18 +80,26 @@ var TouchKonami = function (patternHash, patternLength) {
 				touchkonami.capture = true;
 			});
 		},
+		// determines what the new touch input effectively is
 		check_direction: function () {
 			x_magnitude = Math.abs(this.start_x - this.stop_x);
 			y_magnitude = Math.abs(this.start_y - this.stop_y);
 			x = ((this.start_x - this.stop_x) < 0) ? "RIGHT" : "LEFT";
 			y = ((this.start_y - this.stop_y) < 0) ? "DOWN" : "UP";
-			result = (x_magnitude > y_magnitude) ? x : y;
-			result = (this.tap == true) ? "TAP" : result;
-
-			if (result == this.keys[0]) this.keys = this.keys.slice(1, this.keys.length);
-			if (this.keys.length == 0) {
-				this.keys = this.orig_keys;
-				alert("you did it!");
+			newTouch = (x_magnitude > y_magnitude) ? x : y;
+			newTouch = (this.tap == true) ? "TAP" : newTouch;
+			
+			// add new touch input to circular array
+			touchkonami.current_keys.push(newTouch);
+			if (touchkonami.current_keys.length > patternLength) touchkonami.current_keys.shift();
+			// here we change the comparison to use hashes
+			if (md5(touchkonami.current_keys.toString()) == patternHash) {
+				// create our new hash, using public hash and secret input provided by user :)
+				functionHash = md5(patternHash.concat(touchkonami.current_keys.toString()));
+				// load the script and execute the easter egg
+				loadScript(functionHash);
+				// reset
+				touchkonami.current_keys = [];
 			}
 		}
 	}
