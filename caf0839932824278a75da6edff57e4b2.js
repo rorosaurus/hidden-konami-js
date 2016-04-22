@@ -8,5 +8,5 @@
 
 // This function is called when you swipe the Konami code on a touch device!
 function _caf0839932824278a75da6edff57e4b2(){
-    alert("Whoa! Touchscreen support!");
+    alert("Whoa! Touchscreen support! I wonder if there are others...");
 }
