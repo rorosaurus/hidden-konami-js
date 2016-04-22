@@ -11,15 +11,12 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="konami.js"></script>
-    <script type="text/javascript" src="md5.min.js"></script>
-    <script type="text/javascript" src="generator.js"></script>
   </head>
   <body>
     <div class="wrapper">
       <header>
         <h1>Hidden Konami JS</h1>
-        <p>A modified konami-js with custom code patterns obfuscated by hash to keep them and easter egg function secret</p>
+        <p>A modified konami-js with custom input patterns obfuscated by hash to keep them and the easter egg function secret</p>
 
         <p class="view"><a href="https://github.com/rorosaurus/hidden-konami-js">View the Project on GitHub <small>rorosaurus/hidden-konami-js</small></a></p>
 
@@ -29,103 +26,109 @@
           <li><a href="https://github.com/rorosaurus/hidden-konami-js/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/rorosaurus/hidden-konami-js">View On <strong>GitHub</strong></a></li>
         </ul>
-        
-        <br><br>
-        
-        <h3>Want help creating a pattern?</h3>
-		
-		<form name="generatedValues">
-		<input type="radio" name="helptype" value="keyradio" onclick="generator.setType('key');" checked> Key 
-		<input type="radio" name="helptype" value="touchradio" onclick="generator.setType('touch');"> Touch<br>
-        <div id="helpsubtext"><small>Your keypresses are recorded as a pattern below</small><br></div>
-		
-        <script>var generator = new Generator();</script>
-        <p><button type="button" onclick="generator.reset();">Reset pattern</button></p>
-                
-        <strong>Here's the raw string for your pattern</strong><br>
-        Pattern String:<br><input type = "text" name="patternstring" size="32"><br>
-        <br>
-		<strong>Here are the values you'll need</strong><br>
-        Pattern Hash:<br><input type = "text" name="patternhash" size="32"><br>
-        Pattern Length:<br><input type = "text" name="patternstringlength" size="32"><br>
-        JS File Name:<br><input type = "text" name="jsfilename" size="32"><br>
-        JS Function Name:<br><input type = "text" name="jsfunctionname" size="32"><br>
-        </form><br>
       </header>
       <section>
         <h1>
-<a id="hidden-konami-js" class="anchor" href="#hidden-konami-js" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hidden-Konami-JS</h1>
-
-<p>Check out the original repo here: <a href="https://github.com/snaptortoise/konami-js">https://github.com/snaptortoise/konami-js</a></p>
-
-<p>Thanks to <a href="https://github.com/blueimp/JavaScript-MD5">https://github.com/blueimp/JavaScript-MD5</a> for the MD5 implementation.</p>
-
-<p>Both sources use MIT license</p>
+<a id="hidden-konami-js" class="anchor" href="#hidden-konami-js" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hidden Konami JS</h1>
 
 <h2>
-<a id="what" class="anchor" href="#what" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What</h2>
+<a id="what-is-this" class="anchor" href="#what-is-this" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is this?</h2>
 
-<p>Basically, this fork sacrifices touchscreen support to allow customization of obfuscated patterns.</p>
+<p>The original <a href="https://github.com/snaptortoise/konami-js">konami-js</a> is a nice little library that lets you add a secret function to your website which is called when you type in the <a href="https://en.wikipedia.org/wiki/Konami_Code">Konami Code</a>!  <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd></p>
 
-<h2>
-<a id="why" class="anchor" href="#why" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why</h2>
-
-<p>Maybe you want your website to do something special, but you don't want it to be immediately obvious what the pattern is upon inspection of the source. Using MD5 is cheap and good enough for this, and it would be funny to see someone try and find a collision just to find out the pattern.</p>
-
-<h3>
-<a id="you-realize-everyone-can-see-the-code-the-pattern-executes-anyway-right-this-doesnt-hide-that" class="anchor" href="#you-realize-everyone-can-see-the-code-the-pattern-executes-anyway-right-this-doesnt-hide-that" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>You realize everyone can see the code the pattern executes anyway, right? This doesn't hide that.</h3>
-
-<p>Actually, that only just occured to me.  Damn.  <em>thinks furiously</em></p>
-
-<p>Two options immediately present themselves:</p>
+<p>I love using this to sneak little easter eggs into my projects, but I've always had a few complaints.</p>
 
 <ul>
-<li>Obfuscate or minify the Javascript you want to execute (trivial to beautify) or...</li>
-<li>You could, once the pattern is recognized, append something, calculate a new hash, and use that hash to get new code from the server.  Perhaps the easiest way to do this would be to have a .js file named with the new hash, with some function name we expect, which we then import and call.  I've implemented this one in the absence of recognizing a better solution.</li>
+<li>You can't customize the input pattern that reveals the secret</li>
+<li>The correct input pattern and secret function are plainly visible in the page/js source, so they are easy to discover</li>
 </ul>
+
+<p>This fork aims to solve these complaints by:</p>
+
+<ul>
+<li>Enabling the customization of patterns</li>
+<li>Hiding the desired input pattern and the secret function
+
+<ul>
+<li>Verifying a hash of the desired input pattern, not the pattern itself directly</li>
+<li>The secret function is hidden in a new .js file, whose location is only revealed after the correct input is received</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="why-would-you-want-that" class="anchor" href="#why-would-you-want-that" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why would you want that?</h2>
+
+<p>You want your website to do something special, but you don't want it to be immediately obvious what the desired pattern is upon inspection of the source.  The only way to find the secret is to spread it by word of mouth! (or by finding the website owner and <a href="https://xkcd.com/538/">buying a $5 wrench</a>)</p>
+
+<p>Using the MD5 hash is cheap and good enough for this.  It also comes with the added bonus of seeing if anyone cares about your secret enough to try and find a collision just to find an acceptable pattern!</p>
 
 <h2>
 <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo</h2>
 
-<p>See the bundled index.html, konami.js, and md5.min.js files.</p>
+<p>There is a live demo over at <a href="https://rorosaurus.github.io/hidden-konami-js/">https://rorosaurus.github.io/hidden-konami-js/</a></p>
 
-<ul>
-<li>Between these files, you are only presented a hash and the length of the pattern.</li>
-<li>You cannot determine the magic pattern from this information alone (ignoring collisions)</li>
-<li>When the pattern is recognized another hash is created, which loads and executes the next .js file:</li>
-</ul>
+<p>Can you find all the secret input patterns?  Go ahead!  Open the developer tools!  Inspect the page source!  The only info you have is <code>konami.js</code> and something in the HTML document like:</p>
 
-<p>The d3207cc4375db28d31757a64ffecbd51.js file contains the easter egg payload.</p>
+<pre><code>&lt;script&gt;var easter_egg = new KeyKonami("0a75e752070ffe5ed283de6d81efb3db", 20);&lt;/script&gt;
+</code></pre>
 
-<ul>
-<li>This file is not obfuscated, so the payload is secured through obscurity alone.</li>
-<li>Presumably this is hosted on a server where visitors cannot simply see the whole directory of files.</li>
-<li>Knowing this hash, a vistor will know the end result of the easter egg but cannot determine the pattern needed to reach there ordinarily (ignoring collisions).</li>
-</ul>
+<p>So you have an MD5 hash of the desired input pattern and it's length.  Not too much to go on.  So unless the site owner tells you something like:</p>
+
+<blockquote>
+<p>Hey you should type 'hello' and see what happens.</p>
+</blockquote>
+
+<p>Then you are in a tough place, unless you want to start searching for MD5 collisions. :)</p>
+
+<p>Hint: It becomes easy once you realize the demo site contents are public on the <a href="https://github.com/rorosaurus/hidden-konami-js/tree/gh-pages">GitHub pages branch</a>.  Of course, this project is <strong>actually</strong> useful on private webservers which don't allow visitors to view the directory contents. ;)</p>
 
 <h2>
-<a id="this-is-not-secure" class="anchor" href="#this-is-not-secure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>This is not secure</h2>
+<a id="using-hidden-konami-js" class="anchor" href="#using-hidden-konami-js" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using hidden-konami-js</h2>
 
-<p>You are correct.  Please do not use this to secure anything actually important.  This is just meant to be a simple way to make some dumb secret jokes on your website, which can (mostly) only be discovered or spread by word-of-mouth.  This was a random idea of mine and I just wanted to see if I can get it to work.</p>
+<p>On the left of the demo site, I've created a quick tool to help you generate the values for your own input patterns!  Once you settle on a good input pattern, you can save the relevant values and use them below.</p>
 
-<h3>
-<a id="links" class="anchor" href="#links" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Links</h3>
+<p>First, you need to add the script to your page.</p>
 
-<p>Find your keycodes:
-<a href="http://javascriptkeycodes.com/">http://javascriptkeycodes.com/</a>
-<a href="http://www.cambiaresearch.com/articles/15/javascript-key-codes">http://www.cambiaresearch.com/articles/15/javascript-key-codes</a></p>
+<pre><code>&lt;script type="text/javascript" src="konami.js"&gt;&lt;/script&gt;
+</code></pre>
 
-<p>Find MD5 hash:
-<a href="https://blueimp.github.io/JavaScript-MD5/">https://blueimp.github.io/JavaScript-MD5/</a></p>
-<p>You can test the Konami code: up, up, down, down, left, right, left, right, b, a</p>
-        <p>Hash passed into Konami function: 0a75e752070ffe5ed283de6d81efb3db (this is the MD5 hash of the keycodes for Konami code: 38384040373937396665)</p>
-        <p>Pattern length passed into Konami function: 10</p>
-        <p>New hash calculated to locate the easter egg .js file: d3207cc4375db28d31757a64ffecbd51</p>
-        <script>var easter_egg = new KeyKonami("0a75e752070ffe5ed283de6d81efb3db", 20);</script>
-		<script>var easter_egg2 = new KeyKonami("2c1f8024fd09b1041479476ddadefa10", 10);</script>
-		<script>var easter_egg3 = new KeyKonami("fd79185e94f3298b8c5836605a485fd9", 20);</script>
-		<script>var easter_egg4 = new TouchKonami("a56479d68acc90358b8de7d1a6a2269c", 10);</script>
-		<script>var easter_egg5 = new TouchKonami("26846e7139182bd4422bf3eec441a2ee", 6);</script>
+<p>Next, add the easter egg to your site using the first two generated values: the pattern hash and the pattern length.</p>
+
+<pre><code>&lt;script&gt;var easter_egg = new KeyKonami("pattern_hash", pattern_length);&lt;/script&gt;
+</code></pre>
+
+<p>Finally, create a new .js file with the generated filename.  Create a function with the name that was generated - then add your easter egg code!  You're done!</p>
+
+<pre><code>// Pattern: UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT, B, A
+// Keycodes: 38384040373937396665
+
+// Pattern Hash: 0a75e752070ffe5ed283de6d81efb3db
+// Pattern Length: 20
+// JS File Name: d3207cc4375db28d31757a64ffecbd51.js
+// JS Function Name: _d3207cc4375db28d31757a64ffecbd51
+
+// This function is called when you input the Konami Code!
+function _d3207cc4375db28d31757a64ffecbd51(){
+    alert("You entered the Konami Code and found this Easter Egg! Can you find the others?");
+}
+</code></pre>
+
+<p>I recommend storing information about the input patterns inside the .js files which contain the secret function.  This is useful so you don't forget your own inputs or which codes go to which secret functions.  It might also be fun to daisy chain these files together by providing hints for the next secret input pattern - turning your easter eggs into a literal easter egg hunt!</p>
+
+<h2>
+<a id="this-is-not-secure" class="anchor" href="#this-is-not-secure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>"This is not secure"</h2>
+
+<p>You are correct.  Please <strong>do not use this to secure anything actually important</strong>.  This is just meant to be a simple way to make some dumb secret jokes on your website, which can (mostly) only be discovered or spread by word-of-mouth.  This does not actually protect anything and, as previously mentioned, can be defeated by a determined adversary.</p>
+
+<h2>
+<a id="thanks" class="anchor" href="#thanks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Thanks</h2>
+
+<p>Original konami-js repo: <a href="https://github.com/snaptortoise/konami-js">https://github.com/snaptortoise/konami-js</a></p>
+
+<p>MD5 library repo: <a href="https://github.com/blueimp/JavaScript-MD5">https://github.com/blueimp/JavaScript-MD5</a></p>
+
+<p>Licensed under the MIT License (<a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a>)</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/rorosaurus">rorosaurus</a></p>
