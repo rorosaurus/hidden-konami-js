@@ -48,7 +48,7 @@ First, you need to add the script to your page.
 <script type="text/javascript" src="konami.js"></script>
 ```
 
-Next, add the easter egg to your site using the first two generated values: the pattern hash and the pattern length.
+Next, add the easter egg to your site using the first two generated values: the pattern hash and the pattern length. (You can use more than one easter egg, just make sure to use a different variable name!)
 ```
 <script>var easter_egg = new KeyKonami("pattern_hash", pattern_length);</script>
 ```
