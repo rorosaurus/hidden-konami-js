@@ -46,6 +46,7 @@ On the left of the demo site, I've created a quick tool to help you generate the
 First, you need to add the script to your page.  Make sure you add the MD5 script too!
 ```
 <script type="text/javascript" src="konami.js"></script>
+<script type="text/javascript" src="md5.min.js"></script>
 ```
 
 Next, add the easter egg to your site using the first two generated values: the pattern hash and the pattern length. (You can use more than one easter egg, just make sure to use a different variable name!)
@@ -55,21 +56,14 @@ Next, add the easter egg to your site using the first two generated values: the 
 
 Finally, create a new .js file with the generated filename.  Create a function with the name that was generated - then add your easter egg code!  You're done!
 ```
-// Pattern: UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT, B, A
-// Keycodes: 38384040373937396665
-
-// Pattern Hash: 0a75e752070ffe5ed283de6d81efb3db
-// Pattern Length: 20
-// JS File Name: d3207cc4375db28d31757a64ffecbd51.js
-// JS Function Name: _d3207cc4375db28d31757a64ffecbd51
-
-// This function is called when you input the Konami Code!
 function _d3207cc4375db28d31757a64ffecbd51(){
     alert("You entered the Konami Code and found this Easter Egg! Can you find the others?");
 }
 ```
 
-I recommend storing information about the input patterns inside the .js files which contain the secret function.  This is useful so you don't forget your own inputs or which codes go to which secret functions.  It might also be fun to daisy chain these files together by providing hints for the next secret input pattern - turning your easter eggs into a literal easter egg hunt!
+I recommend storing information about the input patterns inside the .js files.  This is useful so you don't forget your own inputs or which codes go to which secret functions.
+
+It might also be fun to daisy chain these files together by providing hints for the next secret input pattern - turning your easter eggs into a literal easter egg hunt!
 
 ## "This is not secure"
 You are correct.  Please **do not use this to secure anything actually important**.  This is just meant to be a simple way to make some dumb secret jokes on your website, which can (mostly) only be discovered or spread by word-of-mouth.  This does not actually protect anything and, as previously mentioned, can be defeated by a determined adversary.
