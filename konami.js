@@ -8,7 +8,7 @@ var functionHash = "";
 
 // patternHash is the MD5 hash of the keycode input string
 // patternLength is the number of digits in the keycode input string
-var Konami = function (patternHash, patternLength) {
+var KeyKonami = function (patternHash, patternLength) {
 	var konami = {
 		addEvent: function (obj, type, fn, ref_obj) {
 			if (obj.addEventListener)
@@ -47,6 +47,70 @@ var Konami = function (patternHash, patternLength) {
 
 	konami.load();
 
+	return konami;
+};
+
+var TouchKonami = function () {
+	var konami = {
+		addEvent: function (obj, type, fn, ref_obj) {
+			if (obj.addEventListener)
+				obj.addEventListener(type, fn, false);
+			else if (obj.attachEvent) {
+				// IE
+				obj["e" + type + fn] = fn;
+				obj[type + fn] = function () {
+					obj["e" + type + fn](window.event, ref_obj);
+				}
+				obj.attachEvent("on" + type, obj[type + fn]);
+			}
+		},
+		start_x: 0,
+		start_y: 0,
+		stop_x: 0,
+		stop_y: 0,
+		tap: false,
+		capture: false,
+		orig_keys: "",
+		keys: ["UP", "UP", "DOWN", "DOWN", "LEFT", "RIGHT", "LEFT", "RIGHT", "TAP", "TAP"],
+		load: function (link) {
+			this.orig_keys = this.keys;
+			konami.addEvent(document, "touchmove", function (e) {
+				if (e.touches.length == 1 && konami.capture == true) {
+					var touch = e.touches[0];
+					konami.stop_x = touch.pageX;
+					konami.stop_y = touch.pageY;
+					konami.tap = false;
+					konami.capture = false;
+					konami.check_direction();
+				}
+			});
+			konami.addEvent(document, "touchend", function (evt) {
+				if (konami.tap == true) konami.check_direction(link);
+			}, false);
+			konami.addEvent(document, "touchstart", function (evt) {
+				konami.start_x = evt.changedTouches[0].pageX;
+				konami.start_y = evt.changedTouches[0].pageY;
+				konami.tap = true;
+				konami.capture = true;
+			});
+		},
+		check_direction: function (link) {
+			x_magnitude = Math.abs(this.start_x - this.stop_x);
+			y_magnitude = Math.abs(this.start_y - this.stop_y);
+			x = ((this.start_x - this.stop_x) < 0) ? "RIGHT" : "LEFT";
+			y = ((this.start_y - this.stop_y) < 0) ? "DOWN" : "UP";
+			result = (x_magnitude > y_magnitude) ? x : y;
+			result = (this.tap == true) ? "TAP" : result;
+
+			if (result == this.keys[0]) this.keys = this.keys.slice(1, this.keys.length);
+			if (this.keys.length == 0) {
+				this.keys = this.orig_keys;
+				alert("you did it!");
+			}
+		}
+	}
+
+	konami.load();
 	return konami;
 };
 
