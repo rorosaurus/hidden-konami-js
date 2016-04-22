@@ -33,15 +33,19 @@
         <br><br>
         
         <h3>Want help creating a pattern?</h3>
-        <small>Your keypresses are recorded as a pattern below</small><br>
+		
+		<form name="generatedValues">
+		<input type="radio" name="helptype" value="keyradio" onclick="generator.setType('key');" checked> Key 
+		<input type="radio" name="helptype" value="touchradio" onclick="generator.setType('touch');"> Touch<br>
+        <div id="helpsubtext"><small>Your keypresses are recorded as a pattern below</small><br></div>
+		
         <script>var generator = new Generator();</script>
         <p><button type="button" onclick="generator.reset();">Reset pattern</button></p>
-        
-        <form name="generatedValues">
-        <strong>Here's the raw keycode for your pattern</strong><br>
-        Pattern Keycodes:<br><input type = "text" name="patternstring" size="32"><br>
-        
-		<strong>Here are the values you'll use</strong><br>
+                
+        <strong>Here's the raw string for your pattern</strong><br>
+        Pattern String:<br><input type = "text" name="patternstring" size="32"><br>
+        <br>
+		<strong>Here are the values you'll need</strong><br>
         Pattern Hash:<br><input type = "text" name="patternhash" size="32"><br>
         Pattern Length:<br><input type = "text" name="patternstringlength" size="32"><br>
         JS File Name:<br><input type = "text" name="jsfilename" size="32"><br>

@@ -58,7 +58,7 @@ var TouchKonami = function (patternHash, patternLength) {
 		stop_y: 0,
 		tap: false,
 		capture: false,
-		current_keys: [],
+		current_input: [],
 		load: function () {
 			addEvent(document, "touchmove", function (e) {
 				if (e.touches.length == 1 && touchkonami.capture == true) {
@@ -90,16 +90,16 @@ var TouchKonami = function (patternHash, patternLength) {
 			newTouch = (this.tap == true) ? "TAP" : newTouch;
 			
 			// add new touch input to circular array
-			touchkonami.current_keys.push(newTouch);
-			if (touchkonami.current_keys.length > patternLength) touchkonami.current_keys.shift();
+			touchkonami.current_input.push(newTouch);
+			if (touchkonami.current_input.length > patternLength) touchkonami.current_input.shift();
 			// here we change the comparison to use hashes
-			if (md5(touchkonami.current_keys.toString()) == patternHash) {
+			if (md5(touchkonami.current_input.toString()) == patternHash) {
 				// create our new hash, using public hash and secret input provided by user :)
-				functionHash = md5(patternHash.concat(touchkonami.current_keys.toString()));
+				functionHash = md5(patternHash.concat(touchkonami.current_input.toString()));
 				// load the script and execute the easter egg
 				loadScript(functionHash);
 				// reset
-				touchkonami.current_keys = [];
+				touchkonami.current_input = [];
 			}
 		}
 	}
