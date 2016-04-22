@@ -123,6 +123,7 @@
 <p>First, you need to add the script to your page.  Make sure you add the MD5 script too!</p>
 
 <pre><code>&lt;script type="text/javascript" src="konami.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="md5.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
 <p>Next, add the easter egg to your site using the first two generated values: the pattern hash and the pattern length. (You can use more than one easter egg, just make sure to use a different variable name!)</p>
@@ -132,21 +133,15 @@
 
 <p>Finally, create a new .js file with the generated filename.  Create a function with the name that was generated - then add your easter egg code!  You're done!</p>
 
-<pre><code>// Pattern: UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT, B, A
-// Keycodes: 38384040373937396665
-
-// Pattern Hash: 0a75e752070ffe5ed283de6d81efb3db
-// Pattern Length: 20
-// JS File Name: d3207cc4375db28d31757a64ffecbd51.js
-// JS Function Name: _d3207cc4375db28d31757a64ffecbd51
-
-// This function is called when you input the Konami Code!
+<pre><code>
 function _d3207cc4375db28d31757a64ffecbd51(){
     alert("You entered the Konami Code and found this Easter Egg! Can you find the others?");
 }
 </code></pre>
 
-<p>I recommend storing information about the input patterns inside the .js files which contain the secret function.  This is useful so you don't forget your own inputs or which codes go to which secret functions.  It might also be fun to daisy chain these files together by providing hints for the next secret input pattern - turning your easter eggs into a literal easter egg hunt!</p>
+<p>I recommend storing information about the input patterns inside the .js files.  This is useful so you don't forget your own inputs or which codes go to which secret functions.</p>
+
+<p>It might also be fun to daisy chain these files together by providing hints for the next secret input pattern - turning your easter eggs into a literal easter egg hunt!</p>
 
 <h2>
 <a id="this-is-not-secure" class="anchor" href="#this-is-not-secure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>"This is not secure"</h2>
