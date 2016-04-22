@@ -25,7 +25,7 @@ function addEvent(obj, type, fn, ref_obj) {
 var KeyKonami = function (patternHash, patternLength) {
 	var keykonami = {
 		input: "",
-		load: function (link) {
+		load: function () {
 			addEvent(document, "keydown", function (e, ref_obj) {
 				if (ref_obj) keykonami = ref_obj; // IE
 				keykonami.input += e ? e.keyCode : event.keyCode;
@@ -46,9 +46,7 @@ var KeyKonami = function (patternHash, patternLength) {
 			}, this);
 		}
 	}
-
 	keykonami.load();
-
 	return keykonami;
 };
 
@@ -62,7 +60,7 @@ var TouchKonami = function (patternHash, patternLength) {
 		capture: false,
 		orig_keys: "",
 		keys: ["UP", "UP", "DOWN", "DOWN", "LEFT", "RIGHT", "LEFT", "RIGHT", "TAP", "TAP"],
-		load: function (link) {
+		load: function () {
 			this.orig_keys = this.keys;
 			addEvent(document, "touchmove", function (e) {
 				if (e.touches.length == 1 && touchkonami.capture == true) {
@@ -75,7 +73,7 @@ var TouchKonami = function (patternHash, patternLength) {
 				}
 			});
 			addEvent(document, "touchend", function (evt) {
-				if (touchkonami.tap == true) touchkonami.check_direction(link);
+				if (touchkonami.tap == true) touchkonami.check_direction();
 			}, false);
 			addEvent(document, "touchstart", function (evt) {
 				touchkonami.start_x = evt.changedTouches[0].pageX;
@@ -84,7 +82,7 @@ var TouchKonami = function (patternHash, patternLength) {
 				touchkonami.capture = true;
 			});
 		},
-		check_direction: function (link) {
+		check_direction: function () {
 			x_magnitude = Math.abs(this.start_x - this.stop_x);
 			y_magnitude = Math.abs(this.start_y - this.stop_y);
 			x = ((this.start_x - this.stop_x) < 0) ? "RIGHT" : "LEFT";
