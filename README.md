@@ -57,7 +57,6 @@ Note: The Pattern String isn't needed, but I include it so you don't forget your
 ```
 <script>var easter_egg = new KeyKonami("pattern_hash", pattern_length);</script>
 ```
-Note: You can use more than one easter egg, just make sure to use a different variable names!
 
 **Step 3:** Finally, you need to create a new  ````js_filename.js```` file (or reuse the file you downloaded from my generator).  Create a function with the name that was generated - then add your easter egg code!  You're done!
 ```
@@ -68,11 +67,11 @@ function function_name(){
 
 ## Tips
 
-We assume the .js file is in the same directory as the HTML file.  You can probably modify the source to change that if necessary.
-
-I recommend storing information about the input patterns inside the .js files, so the generator automatically populates this information.  This is useful so you don't forget your own inputs or which codes go to which secret functions.
-
-It might be fun to daisy chain these files together by providing hints for the next secret input pattern - turning your easter eggs into a literal easter egg hunt!
+* You can use more than one easter egg, just make sure to use a different variable names!
+* We assume the .js file is in the same directory as the HTML file.  (You can probably modify the source to change that if necessary.)
+* I recommend storing information about the input patterns inside the .js files, so you don't forget the details a few months from now.
+ * The generator automatically does  this for you.
+* Try daisy chaining these files together!  Build a breadcrumb trail by providing hints in each file for the next secret input pattern - turning your easter eggs into a literal easter egg hunt!
 
 ## This is not secure
 Nor is it meant to be.  Please **do not use this to secure anything actually important**.  This is just meant to be a simple way to make some dumb secret jokes on your website, which can (mostly) only be discovered or spread by word-of-mouth.  This does not actually protect anything and, as previously mentioned, can be defeated by a determined adversary.
