@@ -12,6 +12,5 @@
 
 // This function is called when you enter the above pattern
 function _fc149891f87779a99601b0774e8fb612(){
-	document.getElementsByName("tldrdiv")[0].innerHTML = 	'<video autoplay="" loop="" muted="" preload="" title="tl;dr lol" style="max-width: 100%;">' +
-															'<source src="tldr.webm" type="video/webm"></video>';
+	window.location = "tldr.webm";
 }
