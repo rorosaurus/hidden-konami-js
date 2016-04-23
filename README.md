@@ -39,22 +39,25 @@ Then you are in a tough place, unless you want to start searching for MD5 collis
 
 Hint: It becomes easy once you realize the demo site contents are public on the [GitHub pages branch](https://github.com/rorosaurus/hidden-konami-js/tree/gh-pages).  Of course, this project is **actually** useful on private webservers which don't allow visitors to view the directory contents. ;)
 
-## Using hidden-konami-js
+## Setup
 
-On the left of the demo site, I've created a quick tool to help you generate the values for your own input patterns!  Once you settle on a good input pattern, you can save the relevant values and use them below.
+On the left sidebar of the demo site, I've created a quick tool to help you generate the values you'll need for setup!  Once you settle on a good input pattern, you can save the relevant values.  They are downloaded as a .txt for security reasons, but the file can be renamed and used as the .js file you'll use in step 3!
 
-First, you need to add the script to your page.  Make sure you add the MD5 script too!
+Note: The Pattern String isn't needed, but I include it so you don't forget your pattern.  For keyboard input, the Pattern String is the [KeyboardEvent keyCode](http://www.w3schools.com/jsref/event_key_keycode.asp).  For touch input, the Pattern String is a comma separated string describing the swipes/taps.
+
+**Step 1:** First, you need to add the script to your page.  Make sure you add the MD5 script too!
 ```
 <script type="text/javascript" src="konami.js"></script>
 <script type="text/javascript" src="md5.min.js"></script>
 ```
 
-Next, add the easter egg to your site using the first two generated values: the pattern hash and the pattern length. (You can use more than one easter egg, just make sure to use a different variable name!)
+**Step 2:** Next, attach the easter egg to your site by adding the tag below to your HTML.  You'll need two of the generated values from earlier: the pattern hash and the pattern length.  Create a KeyKonami for a pattern that uses keyboard presses and use TouchKonami for a pattern that uses touch input.
 ```
 <script>var easter_egg = new KeyKonami("pattern_hash", pattern_length);</script>
 ```
+Note: You can use more than one easter egg, just make sure to use a different variable names!
 
-Finally, using the generated filename, create a new  ````js_filename.js```` file.  Create a function with the name that was generated - then add your easter egg code!  You're done!
+**Step 3:** Finally, you need to create a new  ````js_filename.js```` file (or reuse the file you downloaded from my generator).  Create a function with the name that was generated - then add your easter egg code!  You're done!
 ```
 function function_name(){
     alert("Your secret code goes here!");
