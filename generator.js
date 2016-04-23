@@ -8,7 +8,7 @@ var Generator = function () {
 		capture: false,
 		input: "",
 		touch_input: [],
-		type: "key",
+		type: "KeyKonami",
 		addEvent: function (obj, type, fn, ref_obj) {
 			if (obj.addEventListener)
 				obj.addEventListener(type, fn, false);
